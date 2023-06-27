@@ -1,0 +1,19 @@
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+kpop_cleaning = pd.read_csv(r'C:\Users\zdene\OneDrive\Plocha\CSV files\Kpop idol analysis\kpop_idols.csv',encoding='cp1252')
+
+#dropping flawed data entry
+kpop_cleaning = kpop_cleaning.drop([1183])
+
+#Creating 'Year of Birht' and 'Age' collumn
+kpop_cleaning['Date of Birth'] = pd.to_datetime(kpop_cleaning['Date of Birth'])
+kpop_cleaning['Year of Birth'] = kpop_cleaning['Date of Birth'].dt.year
+kpop_cleaning['Age'] = 2023 - kpop_cleaning['Year of Birth']
+
+print(kpop_cleaning.info())
+
+#exporting to CSV
+kpop_cleaning.to_csv(r'C:\Users\zdene\OneDrive\Plocha\CSV files\Kpop idol analysis\kpop_idols_cleaned.csv')
